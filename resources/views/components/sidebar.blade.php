@@ -2,7 +2,6 @@
     $isRtl = \App\Support\Locale::isRtl();
     $item = fn ($key, $href, $active = false) => ['key' => $key, 'href' => $href, 'active' => $active];
     $menus = [
-        ['label' => 'sidebar.dashboard', 'icon' => 'dashboard', 'active' => request()->routeIs('dashboard'), 'items' => [$item('sidebar.overview', route('dashboard'), request()->routeIs('dashboard'))]],
         ['label' => 'sidebar.products', 'icon' => 'box', 'active' => request()->is('pharmacy/categories*') || request()->is('pharmacy/products*') || request()->is('pharmacy/batches*'), 'items' => [
             $item('sidebar.categories', route('pharmacy.index', 'categories'), request()->is('pharmacy/categories*')),
             $item('sidebar.products', route('pharmacy.index', 'products'), request()->is('pharmacy/products*')),
@@ -83,6 +82,8 @@
     </div>
 
     <nav class="flex-1 space-y-1 overflow-y-auto px-3 py-4">
+        <x-sidebar-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" icon="dashboard">{{ __('sidebar.dashboard') }}</x-sidebar-link>
+
         @foreach ($menus as $menu)
             <x-sidebar-dropdown :label="__($menu['label'])" :icon="$menu['icon']" :active="$menu['active']">
                 @foreach ($menu['items'] as $child)

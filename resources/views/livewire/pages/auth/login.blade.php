@@ -9,9 +9,6 @@ new #[Layout('layouts.guest')] class extends Component
 {
     public LoginForm $form;
 
-    /**
-     * Handle an incoming authentication request.
-     */
     public function login(): void
     {
         $this->validate();
@@ -24,48 +21,63 @@ new #[Layout('layouts.guest')] class extends Component
     }
 }; ?>
 
-<div>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+<div class="overflow-hidden bg-white border shadow-2xl rounded-3xl border-slate-200 shadow-slate-900/10 dark:border-slate-800 dark:bg-slate-900">
+    <div class="px-6 py-6 border-b border-slate-100 dark:border-slate-800">
+        <div class="flex items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <div class="grid w-12 h-12 text-white shadow-lg place-items-center rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-500 shadow-emerald-500/25">
+                    <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 21h8"/><path d="M12 17V3"/><path d="M7 8h10"/><path d="M5 13h14"/></svg>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold tracking-tight text-slate-950 dark:text-white">{{ __('common.app_name') }}</h1>
+                    <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Sign in to your pharmacy workspace</p>
+                </div>
+            </div>
 
-    <form wire:submit="login">
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input wire:model="form.email" id="email" class="block w-full mt-1" type="email" name="email" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('form.email')" class="mt-2" />
+            <x-icon-button type="button" label="Theme" @click="window.toggleTheme()">
+                <svg class="w-5 h-5 dark:hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v2m0 14v2m9-9h-2M5 12H3m15.36-6.36-1.42 1.42M7.05 16.95l-1.41 1.41m12.72 0-1.42-1.41M7.05 7.05 5.64 5.64"/><circle cx="12" cy="12" r="4"/></svg>
+                <svg class="hidden w-5 h-5 dark:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"/></svg>
+            </x-icon-button>
         </div>
+    </div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+    <div class="px-6 py-6">
+        <x-auth-session-status class="mb-4" :status="session('status')" />
 
-            <x-text-input wire:model="form.password" id="password" class="block w-full mt-1"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('form.password')" class="mt-2" />
-        </div>
-
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember" class="inline-flex items-center">
-                <input wire:model="form.remember" id="remember" type="checkbox" class="text-indigo-600 border-gray-300 rounded shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="text-sm text-gray-600 ms-2">{{ __('Remember me') }}</span>
+        <form wire:submit="login" class="space-y-5">
+            <label class="block">
+                <span class="text-sm font-semibold text-slate-700 dark:text-slate-200">{{ __('Email') }}</span>
+                <x-text-input wire:model="form.email" id="email" class="block w-full mt-2" type="email" name="email" required autofocus autocomplete="username" placeholder="test@example.com" />
+                <x-input-error :messages="$errors->get('form.email')" class="mt-2" />
             </label>
-        </div>
 
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="text-sm text-gray-600 underline rounded-md hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}" wire:navigate>
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
+            <label class="block">
+                <span class="text-sm font-semibold text-slate-700 dark:text-slate-200">{{ __('Password') }}</span>
+                <x-text-input wire:model="form.password" id="password" class="block w-full mt-2" type="password" name="password" required autocomplete="current-password" placeholder="password" />
+                <x-input-error :messages="$errors->get('form.password')" class="mt-2" />
+            </label>
 
-            <x-primary-button class="ms-3">
+            <div class="flex items-center justify-between gap-3">
+                <label for="remember" class="inline-flex items-center">
+                    <input wire:model="form.remember" id="remember" type="checkbox" class="rounded shadow-sm border-slate-300 text-emerald-600 focus:ring-emerald-500 dark:border-slate-700 dark:bg-slate-950" name="remember">
+                    <span class="text-sm font-medium ms-2 text-slate-600 dark:text-slate-300">{{ __('Remember me') }}</span>
+                </label>
+
+                @if (Route::has('password.request'))
+                    <a class="text-sm font-semibold transition text-emerald-700 hover:text-emerald-600 dark:text-emerald-300" href="{{ route('password.request') }}" wire:navigate>
+                        {{ __('Forgot your password?') }}
+                    </a>
+                @endif
+            </div>
+
+            <x-button type="submit" class="w-full">
                 {{ __('Log in') }}
-            </x-primary-button>
+            </x-button>
+        </form>
+
+        <div class="px-4 py-3 mt-6 text-sm border rounded-2xl border-emerald-200 bg-emerald-50 text-emerald-800 dark:border-emerald-400/20 dark:bg-emerald-400/10 dark:text-emerald-200">
+            <p class="font-semibold">Demo account</p>
+            <p class="mt-1">test@example.com / password</p>
         </div>
-    </form>
+    </div>
 </div>
