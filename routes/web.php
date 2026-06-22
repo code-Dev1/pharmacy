@@ -9,7 +9,7 @@ use App\Livewire\Pharmacy\SaleCreate;
 use App\Livewire\Pharmacy\StockAdjustmentCreate;
 use App\Http\Controllers\PharmacyPdfController;
 
-Route::view('/', 'welcome');
+Route::get('/', fn () => redirect()->route(auth()->check() ? 'dashboard' : 'login'));
 
 Route::post('locale', function () {
     $locale = request()->validate(['locale' => ['required', 'in:fa,ps,en']])['locale'];

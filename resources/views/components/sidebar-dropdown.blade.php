@@ -5,7 +5,7 @@
         type="button"
         title="{{ $label }}"
         @click="open = !open"
-        class="group flex w-full items-center gap-3 rounded-2xl px-3 py-2.5 text-sm font-semibold transition-all duration-200 {{ $active ? 'bg-gradient-to-r from-emerald-500/15 to-teal-500/10 text-emerald-700 ring-1 ring-emerald-500/15 dark:from-emerald-400/15 dark:to-teal-400/10 dark:text-emerald-300' : 'text-slate-700 hover:bg-slate-100/80 dark:text-slate-200 dark:hover:bg-white/5' }}"
+        class="group flex w-full items-center gap-3 rounded-2xl px-3 py-2.5 text-sm font-semibold transition-all duration-200 {{ $active ? 'bg-gradient-to-r from-emerald-500/15 to-teal-500/10 text-emerald-700 ring-1 ring-emerald-500/15 dark:from-emerald-400/20 dark:to-teal-400/10 dark:text-emerald-200 dark:ring-emerald-400/25' : 'text-slate-700 hover:bg-slate-100/80 dark:text-slate-200 dark:hover:bg-slate-900' }}"
     >
         <x-sidebar-icon :name="$icon" />
         <span class="flex-1 truncate text-start" x-show="!sidebarCollapsed" x-transition.opacity>{{ $label }}</span>

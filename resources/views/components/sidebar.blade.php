@@ -66,19 +66,19 @@
 <div x-show="sidebarOpen" x-transition.opacity @click="sidebarOpen = false" class="fixed inset-0 z-40 bg-slate-950/50 backdrop-blur-sm lg:hidden"></div>
 
 <aside
-    class="fixed inset-y-0 z-50 flex flex-col border-slate-200/70 bg-white/90 shadow-2xl shadow-slate-900/10 backdrop-blur-2xl transition-all duration-300 dark:border-white/10 dark:bg-slate-950/88 {{ $isRtl ? 'right-0 border-l' : 'left-0 border-r' }}"
+    class="fixed inset-y-0 z-50 flex flex-col border-slate-200/70 bg-white shadow-2xl shadow-slate-900/10 transition-all duration-300 dark:border-slate-800 dark:bg-slate-950 {{ $isRtl ? 'right-0 border-l' : 'left-0 border-r' }}"
     :class="[
         sidebarCollapsed ? 'w-24' : 'w-72',
         sidebarOpen ? 'translate-x-0' : '{{ $isRtl ? 'translate-x-full' : '-translate-x-full' }} lg:translate-x-0'
     ]"
 >
-    <div class="flex h-20 items-center gap-3 border-b border-slate-200/70 px-5 dark:border-white/10">
+    <div class="flex h-20 items-center gap-3 border-b border-slate-200/70 px-5 dark:border-slate-800">
         <div class="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-emerald-500 via-teal-500 to-sky-500 text-white shadow-lg shadow-emerald-500/25">
             <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 21h8"/><path d="M12 17V3"/><path d="M7 8h10"/><path d="M5 13h14"/></svg>
         </div>
         <div x-show="!sidebarCollapsed" x-transition.opacity>
             <p class="text-sm font-semibold text-slate-950 dark:text-white">{{ __('common.app_name') }}</p>
-            <p class="text-xs text-slate-500 dark:text-slate-400">{{ __('sidebar.overview') }}</p>
+            <p class="text-xs text-slate-500 dark:text-slate-300">{{ __('sidebar.overview') }}</p>
         </div>
     </div>
 
@@ -92,8 +92,8 @@
         @endforeach
     </nav>
 
-    <div class="border-t border-slate-200/70 p-3 dark:border-white/10">
-        <button @click="sidebarCollapsed = !sidebarCollapsed" class="flex w-full items-center justify-center rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-slate-600 transition hover:bg-slate-100 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:hover:bg-white/10">
+    <div class="border-t border-slate-200/70 p-3 dark:border-slate-800">
+        <button @click="sidebarCollapsed = !sidebarCollapsed" class="flex w-full items-center justify-center rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-slate-600 transition hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800">
             <svg class="h-5 w-5 transition-transform" :class="sidebarCollapsed ? 'rotate-180' : ''" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.79 5.23a.75.75 0 0 1-.02 1.06L9.06 10l3.71 3.71a.75.75 0 1 1-1.06 1.06l-4.24-4.24a.75.75 0 0 1 0-1.06l4.24-4.24a.75.75 0 0 1 1.08 0Z" clip-rule="evenodd"/></svg>
         </button>
     </div>
