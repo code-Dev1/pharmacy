@@ -62,19 +62,29 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>{{ __('common.app_name') }}</title>
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
         <script>
-            if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                document.documentElement.classList.add('dark');
-            }
+            window.applyTheme = function () {
+                const storedTheme = localStorage.getItem('theme') || 'light';
+                document.documentElement.classList.toggle('dark', storedTheme === 'dark');
+            };
+            window.setTheme = function (theme) {
+                localStorage.setItem('theme', theme);
+                window.applyTheme();
+            };
+            window.toggleTheme = function () {
+                window.setTheme(document.documentElement.classList.contains('dark') ? 'light' : 'dark');
+            };
+            window.applyTheme();
+            document.addEventListener('livewire:navigated', window.applyTheme);
         </script>
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="{{ \App\Support\Locale::fontClass() }} text-slate-900 antialiased dark:text-slate-100">
         <div
             x-data="{ sidebarOpen: false, sidebarCollapsed: localStorage.getItem('sidebarCollapsed') === 'true', pageLoading: false }"
             x-effect="localStorage.setItem('sidebarCollapsed', sidebarCollapsed)"
             x-on:livewire:navigate.window="pageLoading = true"
-            x-on:livewire:navigated.window="pageLoading = false"
+            x-on:livewire:navigated.window="pageLoading = false; window.applyTheme()"
             x-on:livewire:navigate-cancelled.window="pageLoading = false"
             class="min-h-screen"
         >
