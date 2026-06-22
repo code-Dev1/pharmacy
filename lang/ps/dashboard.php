@@ -1,0 +1,3 @@
+<?php
+
+return ['today_sales_total' => 'د نن پلور ټولټال', 'today_purchases_total' => 'د نن پېرود ټولټال', 'today_expenses_total' => 'د نن لګښت ټولټال', 'today_profit' => 'د نن ګټه', 'total_products' => 'ټول محصولات', 'low_stock_products' => 'کم سټاک محصولات', 'near_expiry_products' => 'نږدې ختمېدونکي محصولات', 'expired_products' => 'ختم شوي محصولات', 'customer_due_total' => 'د پېرودونکو ټول پاتې', 'supplier_due_total' => 'د عرضه کوونکو ټول پاتې', 'due_sales_amount' => 'د پلور پاتې مبلغ', 'due_purchase_amount' => 'د پېرود پاتې مبلغ', 'recent_sales' => 'وروستي پلورونه', 'recent_purchases' => 'وروستي پېرودونه', 'expiring_products' => 'ختمېدونکي محصولات'];

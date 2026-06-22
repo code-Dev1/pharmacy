@@ -1,0 +1,3 @@
+<?php
+
+return ['stock_movements' => 'د سټاک حرکتونه', 'stock_adjustments' => 'د سټاک سمونې', 'adjustment_no' => 'د سمونې نمبر', 'adjustment_date' => 'د سمونې نېټه', 'reason' => 'دلیل', 'type' => 'ډول', 'reference' => 'مرجع', 'system_quantity' => 'د سیستم تعداد', 'actual_quantity' => 'اصلي تعداد', 'difference' => 'توپیر', 'increase' => 'زیاتوالی', 'decrease' => 'کموالی', 'purchase' => 'پېرود', 'sale' => 'پلور', 'sale_return' => 'د پلور راستنول', 'purchase_return' => 'د پېرود راستنول', 'adjustment_add' => 'سمون زیاتوالی', 'adjustment_sub' => 'سمون کموالی', 'expired' => 'ختم شوی', 'damaged' => 'خراب'];

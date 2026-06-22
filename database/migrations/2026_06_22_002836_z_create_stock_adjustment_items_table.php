@@ -1,0 +1,28 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('stock_adjustment_items', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('stock_adjustment_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('product_id')->constrained()->restrictOnDelete();
+            $table->foreignId('product_batch_id')->nullable()->constrained()->nullOnDelete();
+            $table->integer('system_quantity');
+            $table->integer('actual_quantity');
+            $table->integer('difference');
+            $table->enum('type', ['increase', 'decrease']);
+            $table->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('stock_adjustment_items');
+    }
+};

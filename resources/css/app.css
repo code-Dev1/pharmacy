@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --surface-shadow: 0 18px 55px -28px rgb(15 23 42 / 0.45);
+    }
+
+    html {
+        color-scheme: light;
+    }
+
+    html.dark {
+        color-scheme: dark;
+    }
+
+    .font-rtl {
+        font-family: Vazirmatn, Estedad, Tahoma, Arial, sans-serif;
+    }
+
+    .font-sans {
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    [dir="rtl"] input,
+    [dir="rtl"] textarea,
+    [dir="rtl"] select,
+    [dir="rtl"] table {
+        text-align: right;
+    }
+
+    [x-cloak] {
+        display: none !important;
+    }
+
+    body {
+        min-height: 100vh;
+        background:
+            radial-gradient(circle at top left, rgb(16 185 129 / 0.10), transparent 28rem),
+            radial-gradient(circle at bottom right, rgb(14 165 233 / 0.08), transparent 26rem),
+            #f8fafc;
+    }
+
+    html.dark body {
+        background:
+            radial-gradient(circle at top left, rgb(16 185 129 / 0.13), transparent 28rem),
+            radial-gradient(circle at bottom right, rgb(56 189 248 / 0.08), transparent 26rem),
+            #020617;
+    }
+}
+
+@layer components {
+    .ui-surface {
+        @apply border border-white/70 bg-white/90 shadow-[var(--surface-shadow)] backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/82;
+    }
+
+    .ui-panel {
+        @apply rounded-2xl border border-slate-200/80 bg-white/90 shadow-sm shadow-slate-900/5 backdrop-blur dark:border-white/10 dark:bg-slate-900/75;
+    }
+
+    .ui-field {
+        @apply w-full rounded-2xl border-slate-200 bg-white/90 text-sm text-slate-800 shadow-sm transition placeholder:text-slate-400 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 dark:border-white/10 dark:bg-white/[0.04] dark:text-slate-100 dark:placeholder:text-slate-500;
+    }
+
+    .ui-table-head {
+        @apply bg-slate-50/90 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:bg-white/[0.04] dark:text-slate-400;
+    }
+
+    .ui-row {
+        @apply transition hover:bg-emerald-50/40 dark:hover:bg-white/[0.04];
+    }
+}

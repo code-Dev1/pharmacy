@@ -1,0 +1,3 @@
+<?php
+
+return ['category' => 'کټګوري', 'categories' => 'کټګورۍ', 'products' => 'محصولات', 'batches' => 'بچونه', 'generic_name' => 'جنریک نوم', 'barcode' => 'بارکوډ', 'sku' => 'SKU', 'strength' => 'قوت', 'dosage_form' => 'د درمل شکل', 'purchase_price' => 'د پېرود بیه', 'sale_price' => 'د پلور بیه', 'minimum_stock' => 'کمترین سټاک', 'current_stock' => 'اوسنی سټاک', 'low_stock' => 'کم سټاک', 'batch_number' => 'د بچ نمبر', 'manufacture_date' => 'د تولید نېټه', 'expiry_date' => 'د ختمېدو نېټه', 'quantity' => 'تعداد', 'remaining_quantity' => 'پاتې تعداد', 'expired' => 'ختم شوی', 'near_expiry' => 'نږدې ختمېږي', 'available_stock' => 'شته سټاک', 'product_count' => 'د محصولاتو شمېر'];

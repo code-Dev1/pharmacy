@@ -1,0 +1,27 @@
+<?php
+
+return [
+    'category' => 'Category',
+    'categories' => 'Categories',
+    'products' => 'Products',
+    'batches' => 'Batches',
+    'generic_name' => 'Generic name',
+    'barcode' => 'Barcode',
+    'sku' => 'SKU',
+    'strength' => 'Strength',
+    'dosage_form' => 'Dosage form',
+    'purchase_price' => 'Purchase price',
+    'sale_price' => 'Sale price',
+    'minimum_stock' => 'Minimum stock',
+    'current_stock' => 'Current stock',
+    'low_stock' => 'Low stock',
+    'batch_number' => 'Batch number',
+    'manufacture_date' => 'Manufacture date',
+    'expiry_date' => 'Expiry date',
+    'quantity' => 'Quantity',
+    'remaining_quantity' => 'Remaining quantity',
+    'expired' => 'Expired',
+    'near_expiry' => 'Near expiry',
+    'available_stock' => 'Available stock',
+    'product_count' => 'Product count',
+];
