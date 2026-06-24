@@ -1,7 +1,123 @@
-<form wire:submit="save" class="space-y-6">
+<div>
+<script>
+    window.quickSaleBarcodeScanner = function () {
+        return {
+            scanning: false,
+            detector: null,
+            stream: null,
+            frameRequest: null,
+            message: '',
+
+            async toggleScanner() {
+                if (this.scanning) {
+                    this.stopScanner();
+                    return;
+                }
+
+                await this.startScanner();
+            },
+
+            async startScanner() {
+                if (!('BarcodeDetector' in window)) {
+                    this.message = 'مرورگر شما اسکن دوربین را پشتیبانی نمی‌کند؛ بارکد را دستی وارد کنید.';
+                    this.$refs.productSearchInput?.focus();
+                    return;
+                }
+
+                try {
+                    this.detector = new BarcodeDetector({ formats: ['code_128', 'code_39', 'ean_13', 'ean_8', 'upc_a', 'upc_e', 'qr_code'] });
+                    this.stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: false });
+                    this.$refs.video.srcObject = this.stream;
+                    await this.$refs.video.play();
+                    this.scanning = true;
+                    this.message = 'اسکنر فعال است.';
+                    this.scanFrame();
+                } catch (error) {
+                    this.message = 'دسترسی دوربین فعال نشد؛ مجوز دوربین را بررسی کنید یا بارکد را دستی وارد کنید.';
+                }
+            },
+
+            async scanFrame() {
+                if (!this.scanning || !this.detector || !this.$refs.video) {
+                    return;
+                }
+
+                try {
+                    const codes = await this.detector.detect(this.$refs.video);
+                    if (codes.length > 0) {
+                        this.setSearch(codes[0].rawValue);
+                        this.message = 'بارکد خوانده شد: ' + codes[0].rawValue;
+                        this.stopScanner(false);
+                        return;
+                    }
+                } catch (error) {
+                    this.message = 'اسکن ادامه دارد؛ بارکد را واضح‌تر مقابل دوربین بگیرید.';
+                }
+
+                this.frameRequest = requestAnimationFrame(() => this.scanFrame());
+            },
+
+            setSearch(value) {
+                this.$refs.productSearchInput.value = value;
+                this.$refs.productSearchInput.dispatchEvent(new InputEvent('input', { bubbles: true, inputType: 'insertText', data: value }));
+                this.$refs.productSearchInput.focus();
+            },
+
+            stopScanner(clearMessage = true) {
+                this.scanning = false;
+                if (this.frameRequest) {
+                    cancelAnimationFrame(this.frameRequest);
+                }
+                if (this.stream) {
+                    this.stream.getTracks().forEach((track) => track.stop());
+                }
+                this.stream = null;
+                if (this.$refs.video) {
+                    this.$refs.video.srcObject = null;
+                }
+                if (clearMessage) {
+                    this.message = '';
+                }
+            },
+        };
+    };
+</script>
+
+<form wire:submit="save" class="space-y-6" x-data="quickSaleBarcodeScanner()">
     <div class="grid gap-6 lg:grid-cols-[22rem_1fr]">
         <x-card :title="__('sidebar.pos')" :description="__('sales.search_product')" class="lg:sticky lg:top-24 lg:self-start">
-            <x-input wire:model.live.debounce.300ms="productSearch" type="search" placeholder="{{ __('sales.search_product') }}" />
+            <div class="space-y-3">
+                <div class="flex gap-2">
+                    <x-input
+                        x-ref="productSearchInput"
+                        wire:model.live.debounce.300ms="productSearch"
+                        type="search"
+                        placeholder="{{ __('sales.search_product') }}"
+                        class="flex-1"
+                    />
+                    <button
+                        type="button"
+                        @click="toggleScanner()"
+                        class="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-emerald-300 hover:text-emerald-700 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
+                        title="اسکن بارکد"
+                    >
+                        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><path d="M7 8v8"/><path d="M11 8v8"/><path d="M15 8v8"/><path d="M18 8v8"/></svg>
+                    </button>
+                </div>
+
+                <div x-show="scanning" x-transition class="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 p-2 dark:border-slate-700 dark:bg-slate-900">
+                    <video x-ref="video" playsinline muted class="aspect-video w-full rounded-xl bg-slate-950 object-cover"></video>
+                    <div class="mt-2 flex items-center justify-between gap-3 text-xs font-semibold text-slate-500 dark:text-slate-400">
+                        <span>دوربین را روی بارکد نگه دارید</span>
+                        <button type="button" @click="stopScanner()" class="rounded-xl px-3 py-2 text-rose-600 transition hover:bg-rose-50 dark:text-rose-300 dark:hover:bg-rose-400/10">بستن</button>
+                    </div>
+                </div>
+
+                <div x-show="message" x-transition class="rounded-2xl border border-emerald-200 bg-emerald-50 px-3 py-2 text-xs font-semibold text-emerald-700 dark:border-emerald-400/20 dark:bg-emerald-400/10 dark:text-emerald-200">
+                    <span x-text="message"></span>
+                </div>
+            </div>
+
             <div class="mt-4 max-h-[34rem] space-y-2 overflow-y-auto pe-1">
                 @forelse($products as $product)
                     <button type="button" wire:click="addProduct({{ $product->id }})" class="w-full rounded-2xl border border-slate-200 bg-white px-3 py-3 text-start shadow-sm transition hover:-translate-y-0.5 hover:border-emerald-200 hover:bg-emerald-50/50 dark:border-white/10 dark:bg-white/[0.04] dark:hover:bg-emerald-400/10">
@@ -58,3 +174,88 @@
         </div>
     </div>
 </form>
+
+<script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('quickSaleBarcodeScanner', () => ({
+            scanning: false,
+            detector: null,
+            stream: null,
+            frameRequest: null,
+            message: '',
+
+            async toggleScanner() {
+                if (this.scanning) {
+                    this.stopScanner();
+                    return;
+                }
+
+                await this.startScanner();
+            },
+
+            async startScanner() {
+                if (!('BarcodeDetector' in window)) {
+                    this.message = 'مرورگر شما اسکن دوربین را پشتیبانی نمی‌کند؛ بارکد را دستی وارد کنید.';
+                    this.$refs.productSearchInput?.focus();
+                    return;
+                }
+
+                try {
+                    this.detector = new BarcodeDetector({ formats: ['code_128', 'code_39', 'ean_13', 'ean_8', 'upc_a', 'upc_e', 'qr_code'] });
+                    this.stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: false });
+                    this.$refs.video.srcObject = this.stream;
+                    await this.$refs.video.play();
+                    this.scanning = true;
+                    this.message = 'اسکنر فعال است.';
+                    this.scanFrame();
+                } catch (error) {
+                    this.message = 'دسترسی دوربین فعال نشد؛ مجوز دوربین را بررسی کنید یا بارکد را دستی وارد کنید.';
+                }
+            },
+
+            async scanFrame() {
+                if (!this.scanning || !this.detector || !this.$refs.video) {
+                    return;
+                }
+
+                try {
+                    const codes = await this.detector.detect(this.$refs.video);
+                    if (codes.length > 0) {
+                        this.setSearch(codes[0].rawValue);
+                        this.message = 'بارکد خوانده شد: ' + codes[0].rawValue;
+                        this.stopScanner(false);
+                        return;
+                    }
+                } catch (error) {
+                    this.message = 'اسکن ادامه دارد؛ بارکد را واضح‌تر مقابل دوربین بگیرید.';
+                }
+
+                this.frameRequest = requestAnimationFrame(() => this.scanFrame());
+            },
+
+            setSearch(value) {
+                this.$refs.productSearchInput.value = value;
+                this.$refs.productSearchInput.dispatchEvent(new InputEvent('input', { bubbles: true, inputType: 'insertText', data: value }));
+                this.$refs.productSearchInput.focus();
+            },
+
+            stopScanner(clearMessage = true) {
+                this.scanning = false;
+                if (this.frameRequest) {
+                    cancelAnimationFrame(this.frameRequest);
+                }
+                if (this.stream) {
+                    this.stream.getTracks().forEach((track) => track.stop());
+                }
+                this.stream = null;
+                if (this.$refs.video) {
+                    this.$refs.video.srcObject = null;
+                }
+                if (clearMessage) {
+                    this.message = '';
+                }
+            },
+        }));
+    });
+</script>
+</div>

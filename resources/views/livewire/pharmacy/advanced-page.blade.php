@@ -1,6 +1,4 @@
 <div class="space-y-6">
-    <x-toast />
-
     @if (str_contains($page, 'report'))
         <x-card>
             <div class="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">

@@ -46,6 +46,7 @@ class AdvancedPage extends Component
 
         $service->paySale(Sale::findOrFail($data['sale_id']), $data);
         session()->flash('toast', __('common.saved'));
+        $this->dispatch('notify', message: __('common.saved'), variant: 'success');
         $this->reset('payment');
         $this->payment['payment_date'] = now()->format('Y-m-d\TH:i');
     }
@@ -63,6 +64,7 @@ class AdvancedPage extends Component
 
         $service->payPurchase(Purchase::findOrFail($data['purchase_id']), $data);
         session()->flash('toast', __('common.saved'));
+        $this->dispatch('notify', message: __('common.saved'), variant: 'success');
         $this->reset('payment');
         $this->payment['payment_date'] = now()->format('Y-m-d\TH:i');
     }

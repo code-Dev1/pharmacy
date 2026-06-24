@@ -45,6 +45,7 @@
     ];
     $fallbackTitle = match ($routeName) {
         'dashboard' => __('common.dashboard'),
+        'carpet.dashboard' => 'داشبورد فرش',
         'purchases.create' => __('sidebar.new_purchase'),
         'sales.create' => __('sidebar.pos'),
         'stock-adjustments.create' => __('stock.stock_adjustments'),
@@ -89,6 +90,7 @@
             class="min-h-screen"
         >
             <x-page-loader />
+            <x-toast />
             <div wire:loading.delay.longer class="fixed end-5 top-20 z-[65]">
                 <div class="rounded-2xl border border-emerald-200 bg-white/95 px-4 py-3 shadow-xl shadow-slate-900/10 dark:border-emerald-400/20 dark:bg-slate-900/95">
                     <x-loading />

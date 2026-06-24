@@ -9,7 +9,12 @@
         </div>
 
         <div class="flex flex-1 items-center justify-end gap-3">
-            <form method="GET" action="{{ route('global.search') }}" class="hidden w-full max-w-md items-center gap-2 rounded-2xl border border-slate-200 bg-white px-3 py-2 text-slate-500 shadow-sm transition focus-within:border-emerald-400 focus-within:ring-4 focus-within:ring-emerald-500/10 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 md:flex">
+            <form
+                method="GET"
+                action="{{ route('global.search') }}"
+                x-on:submit.prevent="Livewire.navigate($el.action + '?q=' + encodeURIComponent($el.elements.q.value))"
+                class="hidden w-full max-w-md items-center gap-2 rounded-2xl border border-slate-200 bg-white px-3 py-2 text-slate-500 shadow-sm transition focus-within:border-emerald-400 focus-within:ring-4 focus-within:ring-emerald-500/10 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 md:flex"
+            >
                 <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
                 <input name="q" value="{{ request('q') }}" type="search" placeholder="{{ __('common.search') }}" class="w-full border-0 bg-transparent p-0 text-sm text-slate-700 placeholder:text-slate-400 focus:ring-0 dark:text-slate-100">
             </form>

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Pharmacy\CrudPage;
 use App\Livewire\Pharmacy\AdvancedPage;
+use App\Livewire\Pharmacy\CarpetDashboard;
 use App\Livewire\Pharmacy\Dashboard;
 use App\Livewire\Pharmacy\PurchaseCreate;
 use App\Livewire\Pharmacy\SaleCreate;
@@ -29,6 +30,10 @@ Route::post('locale', function () {
 Route::get('dashboard', Dashboard::class)
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
+
+Route::get('carpets', CarpetDashboard::class)
+    ->middleware(['auth', 'verified'])
+    ->name('carpet.dashboard');
 
 Route::view('profile', 'profile')
     ->middleware(['auth'])

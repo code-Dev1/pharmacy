@@ -24,7 +24,12 @@
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
+<<<<<<< HEAD
     <body class="font-sans antialiased text-slate-900 dark:text-slate-100">
+=======
+    <body class="font-sans text-slate-900 antialiased dark:text-slate-100">
+        <x-toast />
+>>>>>>> 0f10fe2b0d1ece7f5695e8fb874cba5580c8090f
         <main class="min-h-screen bg-slate-50 dark:bg-slate-950">
             <div class="grid min-h-screen lg:grid-cols-2">
                 <section class="flex items-center justify-center min-h-screen px-4 py-10 sm:px-6 lg:px-12">
