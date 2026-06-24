@@ -1,3 +1,32 @@
 <?php
 
-return ['settings' => 'تنظیمات', 'pharmacy_name' => 'نام دواخانه', 'logo' => 'لوگو', 'currency' => 'واحد پول', 'invoice_footer' => 'متن پایین بل', 'low_stock_threshold' => 'حد هشدار موجودی کم', 'expiry_alert_days' => 'روزهای هشدار انقضا', 'activity_logs' => 'لاگ فعالیت‌ها', 'module' => 'ماژول', 'action' => 'عمل', 'reference_id' => 'آی‌دی مرجع', 'ip_address' => 'آدرس آی‌پی', 'timezone' => 'زون زمانی', 'date_format' => 'فرمت تاریخ', 'default_language' => 'زبان پیش‌فرض', 'default_theme' => 'تم پیش‌فرض'];
+return [
+    'settings' => 'تنظیمات',
+    'pharmacy_name' => 'نام دواخانه',
+    'logo' => 'لوگو',
+    'currency' => 'واحد پول',
+    'invoice_footer' => 'متن پایین بل',
+    'low_stock_threshold' => 'حد هشدار موجودی کم',
+    'expiry_alert_days' => 'روزهای هشدار انقضا',
+    'activity_logs' => 'لاگ فعالیت‌ها',
+    'module' => 'ماژول',
+    'action' => 'عمل',
+    'reference_id' => 'آی‌دی مرجع',
+    'ip_address' => 'آدرس آی‌پی',
+    'timezone' => 'زون زمانی',
+    'date_format' => 'فرمت تاریخ',
+    'default_language' => 'زبان پیش‌فرض',
+    'default_theme' => 'تم پیش‌فرض',
+    'backup_database' => 'پشتیبان دیتابیس',
+    'backup_download_description' => 'یک نسخه از دیتابیس فعلی ساخته و دانلود کنید.',
+    'current_database' => 'دیتابیس فعلی',
+    'download_backup' => 'دانلود پشتیبان',
+    'restore_database' => 'آپلود دیتابیس',
+    'restore_description' => 'یک فایل پشتیبان SQLite را آپلود کنید تا جای دیتابیس فعلی را بگیرد.',
+    'database_file' => 'فایل دیتابیس',
+    'restore_confirm' => 'می‌دانم که دیتابیس فعلی جایگزین می‌شود. قبل از جایگزینی یک پشتیبان امن ساخته می‌شود.',
+    'upload_restore' => 'آپلود و بازیابی',
+    'restore_success' => 'دیتابیس با موفقیت بازیابی شد.',
+    'backup_invalid_file' => 'فایل آپلود شده دیتابیس SQLite معتبر نیست.',
+    'backup_sqlite_only' => 'پشتیبان‌گیری و بازیابی در این سیستم فقط برای دیتابیس SQLite فعال است.',
+];

@@ -15,14 +15,13 @@ class Supplier extends Model
         'email',
         'address',
         'contact_person',
-        'opening_balance',
         'notes',
         'is_active',
     ];
 
     protected function casts(): array
     {
-        return ['is_active' => 'boolean', 'opening_balance' => 'decimal:2'];
+        return ['is_active' => 'boolean'];
     }
 
     public function purchases()

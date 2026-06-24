@@ -63,7 +63,7 @@
             <thead class="ui-table-head">
                 <tr>
                     <th class="px-4 py-3 text-start">{{ __('common.name') }}</th>
-                    <th class="px-4 py-3 text-start">{{ __('common.status') }}</th>
+                    <th class="px-4 py-3 text-start">{{ $module === 'expenses' ? __('common.amount') : __('common.status') }}</th>
                     <th class="px-4 py-3 text-start">{{ __('common.created_at') }}</th>
                     <th class="px-4 py-3 text-start">{{ __('common.actions') }}</th>
                 </tr>
@@ -80,7 +80,9 @@
                             @endif
                         </td>
                         <td class="px-4 py-3">
-                            @if (isset($row->is_active))
+                            @if ($module === 'expenses')
+                                <span class="font-semibold text-slate-950 dark:text-white">{{ number_format((float) $row->amount, 2) }}</span>
+                            @elseif (isset($row->is_active))
                                 <x-badge :variant="$row->is_active ? 'success' : 'neutral'">{{ $row->is_active ? __('common.active') : __('common.inactive') }}</x-badge>
                             @elseif (isset($row->payment_status))
                                 <x-badge :variant="$row->payment_status === 'paid' ? 'success' : ($row->payment_status === 'due' ? 'danger' : 'warning')">{{ __("common.$row->payment_status") }}</x-badge>
@@ -114,7 +116,7 @@
             </div>
             <div class="grid gap-5 p-5 md:grid-cols-2">
                 @foreach ($fields as $name => $field)
-                    <label class="{{ ($field['type'] ?? 'text') === 'textarea' ? 'md:col-span-2' : '' }} block">
+                    <label class="{{ $field['col_span'] ?? ((($field['type'] ?? 'text') === 'textarea') ? 'md:col-span-2' : '') }} block">
                         <span class="text-sm font-semibold text-slate-700 dark:text-slate-200">{{ __($field['label']) }}</span>
                         @if (($field['type'] ?? 'text') === 'textarea')
                             <x-textarea wire:model="form.{{ $name }}" rows="4" class="mt-2" />

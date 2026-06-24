@@ -8,6 +8,7 @@ use App\Livewire\Pharmacy\Dashboard;
 use App\Livewire\Pharmacy\PurchaseCreate;
 use App\Livewire\Pharmacy\SaleCreate;
 use App\Livewire\Pharmacy\StockAdjustmentCreate;
+use App\Http\Controllers\DatabaseBackupController;
 use App\Http\Controllers\PharmacyPdfController;
 use App\Models\ActivityLog;
 use App\Models\Customer;
@@ -165,6 +166,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('sales/create', SaleCreate::class)->name('sales.create');
     Route::get('stock-adjustments/create', StockAdjustmentCreate::class)->name('stock-adjustments.create');
     Route::get('advanced/{page}/{id?}', AdvancedPage::class)->name('advanced.page');
+    Route::get('backup', [DatabaseBackupController::class, 'index'])->name('backup.index');
+    Route::get('backup/download', [DatabaseBackupController::class, 'download'])->name('backup.download');
+    Route::post('backup/restore', [DatabaseBackupController::class, 'restore'])->name('backup.restore');
     Route::get('pdf/sales/{sale}', [PharmacyPdfController::class, 'saleInvoice'])->name('pdf.sale');
     Route::get('receipts/sales/{sale}', [PharmacyPdfController::class, 'saleReceipt'])->name('receipt.sale');
     Route::get('pdf/purchases/{purchase}', [PharmacyPdfController::class, 'purchaseInvoice'])->name('pdf.purchase');

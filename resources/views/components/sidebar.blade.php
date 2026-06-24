@@ -32,9 +32,10 @@
             $item('sidebar.sale_return', route('pharmacy.create', 'sale-returns'), request()->is('pharmacy/sale-returns*')),
             $item('sidebar.purchase_return', route('pharmacy.create', 'purchase-returns'), request()->is('pharmacy/purchase-returns*')),
         ]],
-        ['label' => 'sidebar.people', 'icon' => 'users', 'active' => request()->is('pharmacy/customers*') || request()->is('pharmacy/suppliers*'), 'items' => [
+        ['label' => 'sidebar.people', 'icon' => 'users', 'active' => request()->is('pharmacy/customers*') || request()->is('pharmacy/suppliers*') || request()->is('advanced/debts*'), 'items' => [
             $item('sidebar.customers', route('pharmacy.index', 'customers'), request()->is('pharmacy/customers*')),
             $item('sidebar.suppliers', route('pharmacy.index', 'suppliers'), request()->is('pharmacy/suppliers*')),
+            $item('قرضداری', route('advanced.page', 'debts'), request()->is('advanced/debts*')),
         ]],
         ['label' => 'sidebar.expenses', 'icon' => 'expenses', 'active' => request()->is('pharmacy/expense*'), 'items' => [
             $item('sidebar.expense_categories', route('pharmacy.index', 'expense-categories'), request()->is('pharmacy/expense-categories*')),
@@ -51,12 +52,12 @@
             $item('sidebar.supplier_due_report', route('advanced.page', 'supplier-due-report'), request()->is('advanced/supplier-due-report*')),
             $item('sidebar.expense_report', route('advanced.page', 'expense-report'), request()->is('advanced/expense-report*')),
         ]],
-        ['label' => 'sidebar.settings', 'icon' => 'settings', 'active' => request()->is('pharmacy/settings*'), 'items' => [
+        ['label' => 'sidebar.settings', 'icon' => 'settings', 'active' => request()->is('pharmacy/settings*') || request()->is('backup*'), 'items' => [
             $item('sidebar.pharmacy_settings', route('pharmacy.index', 'settings'), request()->is('pharmacy/settings*')),
             // $item('sidebar.users', route('pharmacy.index', 'settings')),
             // $item('sidebar.roles_permissions', route('pharmacy.index', 'settings')),
             // $item('sidebar.language_settings', route('pharmacy.index', 'settings')),
-            $item('sidebar.backup_settings', route('pharmacy.index', 'settings')),
+            $item('sidebar.backup_settings', route('backup.index'), request()->is('backup*')),
         ]],
         ['label' => 'sidebar.system', 'icon' => 'settings', 'active' => request()->is('pharmacy/activity-logs*'), 'items' => [$item('sidebar.activity_logs', route('pharmacy.index', 'activity-logs'), request()->is('pharmacy/activity-logs*'))]],
     ];
