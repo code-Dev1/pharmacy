@@ -37,6 +37,7 @@ return [
     'confirm_delete' => 'Confirm delete',
     'delete_question' => 'Are you sure you want to delete this record?',
     'saved' => 'Saved successfully.',
+    'order_failed' => 'Order was not saved. Please check the details and try again.',
     'updated' => 'Updated successfully.',
     'deleted' => 'Deleted successfully.',
     'cannot_delete' => 'This record cannot be deleted because related records exist.',

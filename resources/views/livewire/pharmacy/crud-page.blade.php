@@ -1,6 +1,4 @@
 <div class="space-y-6">
-    <x-toast />
-
     @if (($config['report'] ?? false))
         @php
             $cost = \App\Models\SaleItem::query()->with('product')->get()->sum(fn ($item) => $item->quantity * ($item->product?->purchase_price ?? 0));
@@ -161,10 +159,10 @@
                 @elseif ($module === 'purchases')
                     <a href="{{ route('pdf.purchase', $record) }}" target="_blank"><x-button type="button" variant="outline">{{ __('reports.pdf') }}</x-button></a>
                 @elseif ($module === 'customers')
-                    <a href="{{ route('advanced.page', ['customer-statement', $record->id]) }}"><x-button type="button" variant="secondary">{{ __('reports.customer_statement') }}</x-button></a>
+                    <a href="{{ route('advanced.page', ['customer-statement', $record->id]) }}" wire:navigate><x-button type="button" variant="secondary">{{ __('reports.customer_statement') }}</x-button></a>
                     <a href="{{ route('pdf.customer.statement', $record) }}" target="_blank"><x-button type="button" variant="outline">{{ __('reports.pdf') }}</x-button></a>
                 @elseif ($module === 'suppliers')
-                    <a href="{{ route('advanced.page', ['supplier-statement', $record->id]) }}"><x-button type="button" variant="secondary">{{ __('reports.supplier_statement') }}</x-button></a>
+                    <a href="{{ route('advanced.page', ['supplier-statement', $record->id]) }}" wire:navigate><x-button type="button" variant="secondary">{{ __('reports.supplier_statement') }}</x-button></a>
                     <a href="{{ route('pdf.supplier.statement', $record) }}" target="_blank"><x-button type="button" variant="outline">{{ __('reports.pdf') }}</x-button></a>
                 @endif
                 @if (!($config['readonly'] ?? false))

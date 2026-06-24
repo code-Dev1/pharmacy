@@ -111,6 +111,7 @@ class CrudPage extends Component
         foreach ($this->config()['guards'] ?? [] as $relation) {
             if ($record->{$relation}()->exists()) {
                 session()->flash('toast', __('common.cannot_delete'));
+                $this->dispatch('notify', message: __('common.cannot_delete'), variant: 'warning');
                 $this->deleteId = null;
                 return;
             }
@@ -119,6 +120,7 @@ class CrudPage extends Component
         $record->delete();
         $this->deleteId = null;
         session()->flash('toast', __('common.deleted'));
+        $this->dispatch('notify', message: __('common.deleted'), variant: 'success');
     }
 
     public function getTitleProperty(): string

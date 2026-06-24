@@ -83,6 +83,7 @@
 
     <nav class="flex-1 space-y-1 overflow-y-auto px-3 py-4">
         <x-sidebar-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" icon="dashboard">{{ __('sidebar.dashboard') }}</x-sidebar-link>
+        <x-sidebar-link :href="route('carpet.dashboard')" :active="request()->routeIs('carpet.dashboard')" icon="box">داشبورد فرش</x-sidebar-link>
 
         @foreach ($menus as $menu)
             <x-sidebar-dropdown :label="__($menu['label'])" :icon="$menu['icon']" :active="$menu['active']">
