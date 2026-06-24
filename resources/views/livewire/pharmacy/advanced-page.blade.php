@@ -41,7 +41,7 @@
                 <x-button type="submit">{{ __('common.save') }}</x-button>
             </form>
         </x-card>
-        @php($rows = $salesDue)
+        @php($rows = $customerDueRows)
     @elseif ($page === 'supplier-due-payments')
         <x-card :title="__('sidebar.supplier_due_payments')">
             <form wire:submit="saveSupplierPayment" class="grid gap-3 md:grid-cols-6">
@@ -53,7 +53,61 @@
                 <x-button type="submit">{{ __('common.save') }}</x-button>
             </form>
         </x-card>
-        @php($rows = $purchasesDue)
+        @php($rows = $supplierDueRows)
+    @endif
+
+    @if ($page === 'debts')
+        <div class="grid gap-6 xl:grid-cols-2">
+            <x-card title="کی از ما قرضدار است">
+                <div class="overflow-x-auto">
+                    <table class="w-full min-w-[560px] divide-y divide-slate-200 text-sm dark:divide-slate-800">
+                        <thead class="ui-table-head">
+                            <tr>
+                                <th class="px-4 py-3 text-start">نام مشتری</th>
+                                <th class="px-4 py-3 text-start">تعداد بل</th>
+                                <th class="px-4 py-3 text-end">مبلغ قرض</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 dark:divide-white/10">
+                            @forelse ($customerDueRows as $customer)
+                                <tr class="ui-row">
+                                    <td class="px-4 py-3 font-bold text-slate-900 dark:text-white">{{ $customer->name }}</td>
+                                    <td class="px-4 py-3">{{ $customer->due_documents_count }}</td>
+                                    <td class="px-4 py-3 text-end font-black text-rose-600">{{ number_format((float) $customer->due_amount, 2) }}</td>
+                                </tr>
+                            @empty
+                                <tr><td colspan="3" class="p-6"><x-empty-state title="هیچ مشتری قرضدار نیست" /></td></tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </x-card>
+
+            <x-card title="از کی قرضدار هستیم">
+                <div class="overflow-x-auto">
+                    <table class="w-full min-w-[560px] divide-y divide-slate-200 text-sm dark:divide-slate-800">
+                        <thead class="ui-table-head">
+                            <tr>
+                                <th class="px-4 py-3 text-start">نام تهیه‌کننده</th>
+                                <th class="px-4 py-3 text-start">تعداد بل</th>
+                                <th class="px-4 py-3 text-end">مبلغ قرض</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 dark:divide-white/10">
+                            @forelse ($supplierDueRows as $supplier)
+                                <tr class="ui-row">
+                                    <td class="px-4 py-3 font-bold text-slate-900 dark:text-white">{{ $supplier->name }}</td>
+                                    <td class="px-4 py-3">{{ $supplier->due_documents_count }}</td>
+                                    <td class="px-4 py-3 text-end font-black text-amber-600">{{ number_format((float) $supplier->due_amount, 2) }}</td>
+                                </tr>
+                            @empty
+                                <tr><td colspan="3" class="p-6"><x-empty-state title="ما به هیچ تهیه‌کننده قرضدار نیستیم" /></td></tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </x-card>
+        </div>
     @endif
 
     @if ($statement)
@@ -75,6 +129,7 @@
         </div>
     @endif
 
+    @unless ($page === 'debts')
     <x-table>
         <thead class="ui-table-head">
             <tr>
@@ -92,12 +147,14 @@
                         @if (isset($row->due_amount) && $row->due_amount > 0)<x-badge variant="danger" class="ms-2">{{ __('common.due') }}</x-badge>@endif
                     </td>
                     <td class="px-4 py-3">{{ optional($row->sale_date ?? $row->purchase_date ?? $row->expense_date ?? $row->expiry_date ?? $row->created_at)->format('Y-m-d') }}</td>
-                    <td class="px-4 py-3">{{ number_format((float) ($row->total ?? $row->amount ?? $row->remaining_quantity ?? $row->current_stock ?? 0), 2) }}</td>
+                    <td class="px-4 py-3">{{ number_format((float) ($row->due_amount ?? $row->total ?? $row->amount ?? $row->remaining_quantity ?? $row->current_stock ?? 0), 2) }}</td>
                     <td class="px-4 py-3">
                         @if (($row->expiry_date ?? null) && $row->expiry_date->isPast())
                             <x-badge variant="danger">{{ __('products.expired') }}</x-badge>
                         @elseif (($row->expiry_date ?? null))
                             <x-badge variant="warning">{{ __('products.near_expiry') }}</x-badge>
+                        @elseif (isset($row->due_documents_count))
+                            <x-badge variant="danger">{{ $row->due_documents_count }} {{ str_contains($page, 'supplier') ? __('purchases.purchases') : __('sales.sales') }}</x-badge>
                         @elseif ($row->payment_status ?? null)
                             <x-badge variant="{{ $row->payment_status === 'paid' ? 'success' : 'warning' }}">{{ __("common.$row->payment_status") }}</x-badge>
                         @else
@@ -114,4 +171,5 @@
     @if (method_exists($rows, 'links'))
         {{ $rows->links() }}
     @endif
+    @endunless
 </div>

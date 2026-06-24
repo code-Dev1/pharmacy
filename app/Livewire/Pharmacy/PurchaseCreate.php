@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Pharmacy;
 
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\Purchase;
 use App\Models\Supplier;
@@ -14,6 +15,8 @@ class PurchaseCreate extends Component
 {
     public array $form = ['supplier_id' => '', 'purchase_date' => '', 'discount' => 0, 'tax' => 0, 'paid_amount' => 0, 'payment_method' => 'cash', 'notes' => ''];
     public array $items = [];
+    public bool $showQuickProductForm = false;
+    public array $quickProduct = ['item_index' => null, 'name' => '', 'barcode' => ''];
 
     public function mount(): void
     {
@@ -30,6 +33,54 @@ class PurchaseCreate extends Component
     {
         unset($this->items[$index]);
         $this->items = array_values($this->items);
+    }
+
+    public function openQuickProductForm(int $index): void
+    {
+        $this->quickProduct = ['item_index' => $index, 'name' => '', 'barcode' => ''];
+        $this->showQuickProductForm = true;
+    }
+
+    public function createQuickProduct(): void
+    {
+        $validated = $this->validate([
+            'quickProduct.item_index' => ['required', 'integer'],
+            'quickProduct.name' => ['required', 'string', 'max:255', 'unique:products,name'],
+            'quickProduct.barcode' => ['nullable', 'string', 'max:255', 'unique:products,barcode'],
+        ]);
+
+        $index = (int) $validated['quickProduct']['item_index'];
+
+        if (! array_key_exists($index, $this->items)) {
+            $this->resetQuickProductForm();
+
+            return;
+        }
+
+        $category = Category::firstOrCreate(
+            ['name' => 'عمومی'],
+            ['description' => null, 'is_active' => true],
+        );
+
+        $product = Product::create([
+            'category_id' => $category->id,
+            'name' => $validated['quickProduct']['name'],
+            'barcode' => $validated['quickProduct']['barcode'] ?: null,
+            'purchase_price' => (float) ($this->items[$index]['unit_price'] ?? 0),
+            'sale_price' => (float) ($this->items[$index]['sale_price'] ?? 0),
+            'minimum_stock' => 0,
+            'is_active' => true,
+        ]);
+
+        $this->items[$index]['product_id'] = $product->id;
+        $this->resetQuickProductForm();
+        $this->dispatch('notify', type: 'success', message: __('common.saved'));
+    }
+
+    public function resetQuickProductForm(): void
+    {
+        $this->showQuickProductForm = false;
+        $this->quickProduct = ['item_index' => null, 'name' => '', 'barcode' => ''];
     }
 
     public function save(PurchaseService $service)

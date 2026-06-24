@@ -78,6 +78,8 @@ class AdvancedPage extends Component
             'suppliers' => Supplier::orderBy('name')->get(),
             'salesDue' => Sale::with('customer', 'payments')->where('due_amount', '>', 0)->latest()->get(),
             'purchasesDue' => Purchase::with('supplier', 'payments')->where('due_amount', '>', 0)->latest()->get(),
+            'customerDueRows' => $this->customerDueRows()->get(),
+            'supplierDueRows' => $this->supplierDueRows()->get(),
             'statement' => $this->statement(),
             'reportTotals' => $this->reportTotals(),
         ]);
@@ -86,6 +88,7 @@ class AdvancedPage extends Component
     protected function title(): string
     {
         return match ($this->page) {
+            'debts' => 'قرضداری',
             'customer-due-payments' => __('sidebar.customer_due_payments'),
             'supplier-due-payments' => __('sidebar.supplier_due_payments'),
             'expired-products' => __('sidebar.expired_products'),
@@ -110,13 +113,14 @@ class AdvancedPage extends Component
         $expiry = app(ExpiryAlertService::class);
 
         return match ($this->page) {
+            'debts' => collect(),
             'expired-products' => $expiry->expired()->paginate(10),
             'near-expiry-products' => $expiry->nearExpiry()->paginate(10),
             'low-stock-products' => app(DashboardReportService::class)->lowStockProducts(),
             'sales-report' => $this->salesReport()->paginate(10),
-            'customer-due-report' => $this->salesReport()->where('due_amount', '>', 0)->paginate(10),
+            'customer-due-payments', 'customer-due-report' => $this->customerDueRows()->paginate(10),
             'purchase-report' => $this->purchaseReport()->paginate(10),
-            'supplier-due-report' => $this->purchaseReport()->where('due_amount', '>', 0)->paginate(10),
+            'supplier-due-payments', 'supplier-due-report' => $this->supplierDueRows()->paginate(10),
             'stock-report' => Product::with('productBatches')->paginate(10),
             'expiry-report' => ProductBatch::with('product')->whereNotNull('expiry_date')->orderBy('expiry_date')->paginate(10),
             'expense-report' => $this->expenseReport()->paginate(10),
@@ -143,6 +147,24 @@ class AdvancedPage extends Component
             ->when($this->filters['supplier_id'], fn ($q) => $q->where('supplier_id', $this->filters['supplier_id']))
             ->when($this->filters['payment_status'], fn ($q) => $q->where('payment_status', $this->filters['payment_status']))
             ->latest();
+    }
+
+    protected function customerDueRows()
+    {
+        return Customer::query()
+            ->whereHas('sales', fn ($query) => $query->where('due_amount', '>', 0))
+            ->withCount(['sales as due_documents_count' => fn ($query) => $query->where('due_amount', '>', 0)])
+            ->withSum(['sales as due_amount' => fn ($query) => $query->where('due_amount', '>', 0)], 'due_amount')
+            ->orderByDesc('due_amount');
+    }
+
+    protected function supplierDueRows()
+    {
+        return Supplier::query()
+            ->whereHas('purchases', fn ($query) => $query->where('due_amount', '>', 0))
+            ->withCount(['purchases as due_documents_count' => fn ($query) => $query->where('due_amount', '>', 0)])
+            ->withSum(['purchases as due_amount' => fn ($query) => $query->where('due_amount', '>', 0)], 'due_amount')
+            ->orderByDesc('due_amount');
     }
 
     protected function expenseReport()

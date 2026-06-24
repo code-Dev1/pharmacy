@@ -13,13 +13,12 @@ class Customer extends Model
         'name',
         'phone',
         'address',
-        'opening_balance',
         'notes',
     ];
 
     protected function casts(): array
     {
-        return ['opening_balance' => 'decimal:2'];
+        return [];
     }
 
     public function sales()

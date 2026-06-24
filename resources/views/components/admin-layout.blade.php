@@ -27,6 +27,7 @@
         'activity-logs' => 'settings.activity_logs',
     ];
     $advancedTitles = [
+        'debts' => 'قرضداری',
         'customer-due-payments' => 'sidebar.customer_due_payments',
         'supplier-due-payments' => 'sidebar.supplier_due_payments',
         'expired-products' => 'sidebar.expired_products',
@@ -46,10 +47,11 @@
     $fallbackTitle = match ($routeName) {
         'dashboard' => __('common.dashboard'),
         'carpet.dashboard' => 'داشبورد فرش',
+        'backup.index' => __('sidebar.backup_settings'),
         'purchases.create' => __('sidebar.new_purchase'),
         'sales.create' => __('sidebar.pos'),
         'stock-adjustments.create' => __('stock.stock_adjustments'),
-        'advanced.page' => __($advancedTitles[$advancedPage] ?? 'sidebar.reports'),
+        'advanced.page' => $advancedPage === 'debts' ? 'قرضداری' : __($advancedTitles[$advancedPage] ?? 'sidebar.reports'),
         'pharmacy.index', 'pharmacy.create', 'pharmacy.show', 'pharmacy.edit' => __($moduleTitles[$module] ?? 'common.dashboard'),
         default => __('common.dashboard'),
     };

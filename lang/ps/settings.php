@@ -1,3 +1,32 @@
 <?php
 
-return ['settings' => 'تنظیمات', 'pharmacy_name' => 'د درملتون نوم', 'logo' => 'لوګو', 'currency' => 'پولي واحد', 'invoice_footer' => 'د بل پای متن', 'low_stock_threshold' => 'د کم سټاک حد', 'expiry_alert_days' => 'د ختمېدو خبرداري ورځې', 'activity_logs' => 'د فعالیت لاګونه', 'module' => 'ماډیول', 'action' => 'کړنه', 'reference_id' => 'د مرجع آی ډي', 'ip_address' => 'IP پته', 'timezone' => 'وخت سیمه', 'date_format' => 'د نېټې بڼه', 'default_language' => 'اصلي ژبه', 'default_theme' => 'اصلي تم'];
+return [
+    'settings' => 'تنظیمات',
+    'pharmacy_name' => 'د درملتون نوم',
+    'logo' => 'لوګو',
+    'currency' => 'پولي واحد',
+    'invoice_footer' => 'د بل پای متن',
+    'low_stock_threshold' => 'د کم سټاک حد',
+    'expiry_alert_days' => 'د ختمېدو خبرداري ورځې',
+    'activity_logs' => 'د فعالیت لاګونه',
+    'module' => 'ماډیول',
+    'action' => 'کړنه',
+    'reference_id' => 'د مرجع آی ډي',
+    'ip_address' => 'IP پته',
+    'timezone' => 'وخت سیمه',
+    'date_format' => 'د نېټې بڼه',
+    'default_language' => 'اصلي ژبه',
+    'default_theme' => 'اصلي تم',
+    'backup_database' => 'د دیتابیس بیک اپ',
+    'backup_download_description' => 'د اوسني دیتابیس یوه نسخه جوړه او ډاونلوډ کړئ.',
+    'current_database' => 'اوسنی دیتابیس',
+    'download_backup' => 'بیک اپ ډاونلوډ',
+    'restore_database' => 'دیتابیس اپلوډ',
+    'restore_description' => 'د SQLite بیک اپ فایل اپلوډ کړئ تر څو اوسنی دیتابیس بدل شي.',
+    'database_file' => 'د دیتابیس فایل',
+    'restore_confirm' => 'پوهېږم چې اوسنی دیتابیس به بدل شي. مخکې له بدلولو خوندي بیک اپ جوړیږي.',
+    'upload_restore' => 'اپلوډ او بیا رغول',
+    'restore_success' => 'دیتابیس په بریالیتوب سره بیا ورغول شو.',
+    'backup_invalid_file' => 'اپلوډ شوی فایل معتبر SQLite دیتابیس نه دی.',
+    'backup_sqlite_only' => 'په دې سیستم کې بیک اپ او بیا رغول یوازې د SQLite دیتابیس لپاره فعال دي.',
+];
