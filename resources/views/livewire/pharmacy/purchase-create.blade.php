@@ -6,9 +6,9 @@
                     <label>
                         <span class="text-sm font-semibold text-slate-700 dark:text-slate-200">{{ __('purchases.supplier') }}</span>
                         <x-select wire:model="form.supplier_id" class="mt-2"><option value="">{{ __('common.all') }}</option>@foreach($suppliers as $supplier)<option value="{{ $supplier->id }}">{{ $supplier->name }}</option>@endforeach</x-select>
-                        @error('form.supplier_id')<span class="mt-2 block text-xs text-rose-600">{{ $message }}</span>@enderror
+                        @error('form.supplier_id')<span class="block mt-2 text-xs text-rose-600">{{ $message }}</span>@enderror
                     </label>
-                    <label><span class="text-sm font-semibold text-slate-700 dark:text-slate-200">{{ __('purchases.purchase_date') }}</span><x-input wire:model="form.purchase_date" type="datetime-local" class="mt-2" /></label>
+                    <label><span class="text-sm font-semibold text-slate-700 dark:text-slate-200">{{ __('purchases.purchase_date') }}</span><x-input wire:model="form.purchase_date" type="date" class="mt-2" /></label>
                     <label><span class="text-sm font-semibold text-slate-700 dark:text-slate-200">{{ __('common.payment_method') }}</span><x-select wire:model="form.payment_method" class="mt-2"><option value="cash">{{ __('common.cash') }}</option><option value="bank">{{ __('common.bank') }}</option><option value="card">{{ __('common.card') }}</option><option value="other">{{ __('common.other') }}</option></x-select></label>
                 </div>
             </x-card>
@@ -29,7 +29,7 @@
                                 <td class="px-3 py-2"><x-input wire:model.live="items.{{ $index }}.discount" type="number" step="0.01" class="w-24" /></td>
                                 <td class="px-3 py-2"><x-input wire:model="items.{{ $index }}.batch_number" class="w-32" /></td>
                                 <td class="px-3 py-2"><x-input wire:model="items.{{ $index }}.expiry_date" type="date" class="w-40" /></td>
-                                <td class="px-3 py-2"><x-button type="button" variant="danger" class="min-h-8 px-3 py-1 text-xs" wire:click="removeItem({{ $index }})">{{ __('common.delete') }}</x-button></td>
+                                <td class="px-3 py-2"><x-button type="button" variant="danger" class="px-3 py-1 text-xs min-h-8" wire:click="removeItem({{ $index }})">{{ __('common.delete') }}</x-button></td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -40,7 +40,7 @@
         <div class="space-y-6 xl:sticky xl:top-24 xl:self-start">
             <x-card :title="__('common.total')">
                 <div class="space-y-4">
-                    <div class="rounded-2xl bg-emerald-50 p-4 dark:bg-emerald-400/10"><span class="text-sm text-emerald-700 dark:text-emerald-300">{{ __('purchases.subtotal') }}</span><p class="mt-1 text-3xl font-bold text-slate-950 dark:text-white">{{ number_format($subtotal, 2) }}</p></div>
+                    <div class="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-400/10"><span class="text-sm text-emerald-700 dark:text-emerald-300">{{ __('purchases.subtotal') }}</span><p class="mt-1 text-3xl font-bold text-slate-950 dark:text-white">{{ number_format($subtotal, 2) }}</p></div>
                     <label><span class="text-sm font-semibold text-slate-700 dark:text-slate-200">{{ __('purchases.discount') }}</span><x-input wire:model.live="form.discount" type="number" step="0.01" class="mt-2" /></label>
                     <label><span class="text-sm font-semibold text-slate-700 dark:text-slate-200">{{ __('purchases.tax') }}</span><x-input wire:model.live="form.tax" type="number" step="0.01" class="mt-2" /></label>
                     <label><span class="text-sm font-semibold text-slate-700 dark:text-slate-200">{{ __('purchases.paid_amount') }}</span><x-input wire:model.live="form.paid_amount" type="number" step="0.01" class="mt-2" /></label>

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('supplier_id')->constrained()->restrictOnDelete();
             $table->string('invoice_no')->unique();
-            $table->dateTime('purchase_date');
+            $table->date('purchase_date');
             $table->decimal('subtotal', 12, 2)->default(0);
             $table->decimal('discount', 12, 2)->default(0);
             $table->decimal('tax', 12, 2)->default(0);

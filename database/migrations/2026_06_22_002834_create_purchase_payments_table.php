@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('purchase_id')->constrained()->cascadeOnDelete();
             $table->foreignId('supplier_id')->constrained()->restrictOnDelete();
             $table->decimal('amount', 12, 2);
-            $table->dateTime('payment_date');
+            $table->date('payment_date');
             $table->enum('payment_method', ['cash', 'bank', 'card', 'other'])->default('cash');
             $table->string('reference_no')->nullable();
             $table->text('notes')->nullable();

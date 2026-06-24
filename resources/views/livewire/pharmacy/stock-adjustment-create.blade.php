@@ -1,7 +1,7 @@
 <form wire:submit="save" class="space-y-6">
     <x-card :title="__('stock.stock_adjustments')" :description="__('stock.reason')">
         <div class="grid gap-5 md:grid-cols-3">
-            <label><span class="text-sm font-semibold text-slate-700 dark:text-slate-200">{{ __('stock.adjustment_date') }}</span><x-input wire:model="form.adjustment_date" type="datetime-local" class="mt-2" /></label>
+            <label><span class="text-sm font-semibold text-slate-700 dark:text-slate-200">{{ __('stock.adjustment_date') }}</span><x-input wire:model="form.adjustment_date" type="date" class="mt-2" /></label>
             <label><span class="text-sm font-semibold text-slate-700 dark:text-slate-200">{{ __('stock.reason') }}</span><x-input wire:model="form.reason" class="mt-2" /></label>
             <x-button type="button" variant="secondary" class="self-end" wire:click="addItem">{{ __('purchases.add_item') }}</x-button>
         </div>

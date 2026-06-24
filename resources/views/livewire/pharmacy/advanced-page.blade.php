@@ -35,7 +35,7 @@
             <form wire:submit="saveCustomerPayment" class="grid gap-3 md:grid-cols-6">
                 <x-select wire:model="payment.sale_id"><option value="">{{ __('sales.sale') }}</option>@foreach($salesDue as $sale)<option value="{{ $sale->id }}">{{ $sale->invoice_no }} - {{ $sale->customer?->name }} - {{ number_format($sale->due_amount, 2) }}</option>@endforeach</x-select>
                 <x-input wire:model="payment.amount" type="number" step="0.01" placeholder="{{ __('common.amount') }}" />
-                <x-input wire:model="payment.payment_date" type="datetime-local" />
+                <x-input wire:model="payment.payment_date" type="date" />
                 <x-select wire:model="payment.payment_method"><option value="cash">{{ __('common.cash') }}</option><option value="bank">{{ __('common.bank') }}</option><option value="card">{{ __('common.card') }}</option><option value="other">{{ __('common.other') }}</option></x-select>
                 <x-input wire:model="payment.reference_no" placeholder="{{ __('purchases.reference_no') }}" />
                 <x-button type="submit">{{ __('common.save') }}</x-button>
@@ -47,7 +47,7 @@
             <form wire:submit="saveSupplierPayment" class="grid gap-3 md:grid-cols-6">
                 <x-select wire:model="payment.purchase_id"><option value="">{{ __('purchases.purchase') }}</option>@foreach($purchasesDue as $purchase)<option value="{{ $purchase->id }}">{{ $purchase->invoice_no }} - {{ $purchase->supplier?->name }} - {{ number_format($purchase->due_amount, 2) }}</option>@endforeach</x-select>
                 <x-input wire:model="payment.amount" type="number" step="0.01" placeholder="{{ __('common.amount') }}" />
-                <x-input wire:model="payment.payment_date" type="datetime-local" />
+                <x-input wire:model="payment.payment_date" type="date" />
                 <x-select wire:model="payment.payment_method"><option value="cash">{{ __('common.cash') }}</option><option value="bank">{{ __('common.bank') }}</option><option value="card">{{ __('common.card') }}</option><option value="other">{{ __('common.other') }}</option></x-select>
                 <x-input wire:model="payment.reference_no" placeholder="{{ __('purchases.reference_no') }}" />
                 <x-button type="submit">{{ __('common.save') }}</x-button>

@@ -24,7 +24,7 @@ return new class extends Migration
 
             $table->decimal('amount', 12, 2);
 
-            $table->dateTime('payment_date');
+            $table->date('payment_date');
 
             $table->enum('payment_method', ['cash', 'bank', 'card', 'other'])->default('cash');
             $table->string('reference_no')->nullable();

@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('stock_adjustments', function (Blueprint $table) {
             $table->id();
             $table->string('adjustment_no')->unique();
-            $table->dateTime('adjustment_date');
+            $table->date('adjustment_date');
             $table->string('reason')->nullable();
             $table->text('notes')->nullable();
             $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();

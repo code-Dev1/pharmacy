@@ -23,7 +23,7 @@ class SaleCreate extends Component
     public function mount(bool $embedded = false): void
     {
         $this->embedded = $embedded;
-        $this->form['sale_date'] = now()->format('Y-m-d\TH:i');
+        $this->form['sale_date'] = now()->format('Y-m-d');
     }
 
     public function addProduct(int $productId): void
@@ -125,7 +125,7 @@ class SaleCreate extends Component
 
     private function resetSaleForm(): void
     {
-        $this->form = ['customer_id' => '', 'sale_date' => now()->format('Y-m-d\TH:i'), 'discount' => 0, 'tax' => 0, 'paid_amount' => 0, 'payment_method' => 'cash', 'notes' => ''];
+        $this->form = ['customer_id' => '', 'sale_date' => now()->format('Y-m-d'), 'discount' => 0, 'tax' => 0, 'paid_amount' => 0, 'payment_method' => 'cash', 'notes' => ''];
         $this->items = [];
         $this->productSearch = '';
     }

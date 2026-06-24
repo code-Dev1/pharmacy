@@ -37,7 +37,7 @@ return new class extends Migration
 
             $table->string('return_no')->unique();
 
-            $table->dateTime('return_date');
+            $table->date('return_date');
 
             $table->decimal('total_amount', 12, 2)->default(0);
 

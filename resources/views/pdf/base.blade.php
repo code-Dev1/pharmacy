@@ -18,7 +18,7 @@
     <div class="header">
         <div class="brand">{{ $setting?->pharmacy_name ?? __('common.app_name') }}</div>
         <div class="muted">{{ $setting?->address }} {{ $setting?->phone }}</div>
-        <div class="muted">{{ __('common.date') }}: {{ now()->format('Y-m-d H:i') }}</div>
+        <div class="muted">{{ __('common.date') }}: {{ now()->format('Y-m-d') }}</div>
     </div>
     @yield('content')
 </body>

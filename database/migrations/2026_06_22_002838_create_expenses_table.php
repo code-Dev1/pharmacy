@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('expense_category_id')->constrained()->restrictOnDelete();
             $table->string('title');
             $table->decimal('amount', 12, 2);
-            $table->dateTime('expense_date');
+            $table->date('expense_date');
             $table->text('notes')->nullable();
             $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
             $table->timestamps();

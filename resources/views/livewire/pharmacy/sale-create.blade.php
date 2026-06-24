@@ -134,7 +134,7 @@
             <x-card :title="__('sales.sale')" :description="__('common.payment_method')">
                 <div class="grid gap-5 md:grid-cols-3">
                     <label><span class="text-sm font-semibold text-slate-700 dark:text-slate-200">{{ __('sales.customer') }}</span><x-select wire:model="form.customer_id" class="mt-2"><option value="">{{ __('common.walk_in_customer') }}</option>@foreach($customers as $customer)<option value="{{ $customer->id }}">{{ $customer->name }}</option>@endforeach</x-select></label>
-                    <label><span class="text-sm font-semibold text-slate-700 dark:text-slate-200">{{ __('sales.sale_date') }}</span><x-input wire:model="form.sale_date" type="datetime-local" class="mt-2" /></label>
+                    <label><span class="text-sm font-semibold text-slate-700 dark:text-slate-200">{{ __('sales.sale_date') }}</span><x-input wire:model="form.sale_date" type="date" class="mt-2" /></label>
                     <label><span class="text-sm font-semibold text-slate-700 dark:text-slate-200">{{ __('common.payment_method') }}</span><x-select wire:model="form.payment_method" class="mt-2"><option value="cash">{{ __('common.cash') }}</option><option value="bank">{{ __('common.bank') }}</option><option value="card">{{ __('common.card') }}</option><option value="other">{{ __('common.other') }}</option></x-select></label>
                 </div>
             </x-card>

@@ -16,7 +16,7 @@ class StockAdjustmentCreate extends Component
 
     public function mount(): void
     {
-        $this->form['adjustment_date'] = now()->format('Y-m-d\TH:i');
+        $this->form['adjustment_date'] = now()->format('Y-m-d');
         $this->addItem();
     }
 

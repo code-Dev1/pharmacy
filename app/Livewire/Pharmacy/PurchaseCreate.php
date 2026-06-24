@@ -17,7 +17,7 @@ class PurchaseCreate extends Component
 
     public function mount(): void
     {
-        $this->form['purchase_date'] = now()->format('Y-m-d\TH:i');
+        $this->form['purchase_date'] = now()->format('Y-m-d');
         $this->addItem();
     }
 

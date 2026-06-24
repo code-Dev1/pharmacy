@@ -33,7 +33,7 @@
         <div class="line"></div>
 
         <div class="row"><span>{{ __('sales.sale') }}</span><strong>{{ $document->invoice_no }}</strong></div>
-        <div class="row"><span>{{ __('common.date') }}</span><span>{{ optional($document->sale_date)->format('Y-m-d H:i') }}</span></div>
+        <div class="row"><span>{{ __('common.date') }}</span><span>{{ optional($document->sale_date)->format('Y-m-d') }}</span></div>
         <div class="row"><span>{{ __('common.name') }}</span><span>{{ $person?->name ?? __('common.walk_in_customer') }}</span></div>
         <div class="row"><span>{{ __('common.status') }}</span><span>{{ __("common.$document->payment_status") }}</span></div>
 
@@ -70,7 +70,7 @@
         @endif
 
         <div class="line"></div>
-        <div class="center muted">{{ __('common.created_at') }}: {{ now()->format('Y-m-d H:i') }}</div>
+        <div class="center muted">{{ __('common.created_at') }}: {{ now()->format('Y-m-d') }}</div>
         <div class="center no-print" style="margin-top: 12px;">
             <button type="button" onclick="window.print()">{{ __('reports.print') }}</button>
         </div>

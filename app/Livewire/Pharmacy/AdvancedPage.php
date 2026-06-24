@@ -30,7 +30,7 @@ class AdvancedPage extends Component
     {
         $this->page = $page;
         $this->id = $id;
-        $this->payment['payment_date'] = now()->format('Y-m-d\TH:i');
+        $this->payment['payment_date'] = now()->format('Y-m-d');
     }
 
     public function saveCustomerPayment(DuePaymentService $service)
@@ -48,7 +48,7 @@ class AdvancedPage extends Component
         session()->flash('toast', __('common.saved'));
         $this->dispatch('notify', message: __('common.saved'), variant: 'success');
         $this->reset('payment');
-        $this->payment['payment_date'] = now()->format('Y-m-d\TH:i');
+        $this->payment['payment_date'] = now()->format('Y-m-d');
     }
 
     public function saveSupplierPayment(DuePaymentService $service)
@@ -66,7 +66,7 @@ class AdvancedPage extends Component
         session()->flash('toast', __('common.saved'));
         $this->dispatch('notify', message: __('common.saved'), variant: 'success');
         $this->reset('payment');
-        $this->payment['payment_date'] = now()->format('Y-m-d\TH:i');
+        $this->payment['payment_date'] = now()->format('Y-m-d');
     }
 
     public function render()
