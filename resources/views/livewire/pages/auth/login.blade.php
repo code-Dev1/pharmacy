@@ -24,13 +24,10 @@ new #[Layout('layouts.guest')] class extends Component
 <div class="overflow-hidden bg-white border shadow-2xl rounded-3xl border-slate-200 shadow-slate-900/10 dark:border-slate-800 dark:bg-slate-900">
     <div class="px-6 py-6 border-b border-slate-100 dark:border-slate-800">
         <div class="flex items-center justify-between gap-4">
-            <div class="flex items-center gap-3">
-                <div class="grid w-12 h-12 text-white shadow-lg place-items-center rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-500 shadow-emerald-500/25">
-                    <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 21h8"/><path d="M12 17V3"/><path d="M7 8h10"/><path d="M5 13h14"/></svg>
-                </div>
+            <div class="flex items-center gap-1">
+
                 <div>
-                    <h1 class="text-xl font-bold tracking-tight text-slate-950 dark:text-white">{{ __('common.app_name') }}</h1>
-                    <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Sign in to your pharmacy workspace</p>
+                    <h1 class="text-xl font-bold tracking-tight text-center text-slate-950 dark:text-white">{{ __('common.app_name') }}</h1>
                 </div>
             </div>
 
@@ -47,7 +44,7 @@ new #[Layout('layouts.guest')] class extends Component
         <form wire:submit="login" class="space-y-5">
             <label class="block">
                 <span class="text-sm font-semibold text-slate-700 dark:text-slate-200">{{ __('Email') }}</span>
-                <x-text-input wire:model="form.email" id="email" class="block w-full mt-2" type="email" name="email" required autofocus autocomplete="username" placeholder="test@example.com" />
+                <x-text-input wire:model="form.email" id="email" class="block w-full mt-2" type="email" name="email" required autofocus autocomplete="username" placeholder="ali@gmail.com" />
                 <x-input-error :messages="$errors->get('form.email')" class="mt-2" />
             </label>
 
@@ -75,9 +72,6 @@ new #[Layout('layouts.guest')] class extends Component
             </x-button>
         </form>
 
-        <div class="px-4 py-3 mt-6 text-sm border rounded-2xl border-emerald-200 bg-emerald-50 text-emerald-800 dark:border-emerald-400/20 dark:bg-emerald-400/10 dark:text-emerald-200">
-            <p class="font-semibold">Demo account</p>
-            <p class="mt-1">test@example.com / password</p>
-        </div>
+
     </div>
 </div>

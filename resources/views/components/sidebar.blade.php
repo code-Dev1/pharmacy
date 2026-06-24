@@ -53,9 +53,9 @@
         ]],
         ['label' => 'sidebar.settings', 'icon' => 'settings', 'active' => request()->is('pharmacy/settings*'), 'items' => [
             $item('sidebar.pharmacy_settings', route('pharmacy.index', 'settings'), request()->is('pharmacy/settings*')),
-            $item('sidebar.users', route('pharmacy.index', 'settings')),
-            $item('sidebar.roles_permissions', route('pharmacy.index', 'settings')),
-            $item('sidebar.language_settings', route('pharmacy.index', 'settings')),
+            // $item('sidebar.users', route('pharmacy.index', 'settings')),
+            // $item('sidebar.roles_permissions', route('pharmacy.index', 'settings')),
+            // $item('sidebar.language_settings', route('pharmacy.index', 'settings')),
             $item('sidebar.backup_settings', route('pharmacy.index', 'settings')),
         ]],
         ['label' => 'sidebar.system', 'icon' => 'settings', 'active' => request()->is('pharmacy/activity-logs*'), 'items' => [$item('sidebar.activity_logs', route('pharmacy.index', 'activity-logs'), request()->is('pharmacy/activity-logs*'))]],
@@ -71,9 +71,9 @@
         sidebarOpen ? 'translate-x-0' : '{{ $isRtl ? 'translate-x-full' : '-translate-x-full' }} lg:translate-x-0'
     ]"
 >
-    <div class="flex h-20 items-center gap-3 border-b border-slate-200/70 px-5 dark:border-slate-800">
-        <div class="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-emerald-500 via-teal-500 to-sky-500 text-white shadow-lg shadow-emerald-500/25">
-            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 21h8"/><path d="M12 17V3"/><path d="M7 8h10"/><path d="M5 13h14"/></svg>
+    <div class="flex items-center h-20 gap-3 px-5 border-b border-slate-200/70 dark:border-slate-800">
+        <div class="grid text-white shadow-lg h-11 w-11 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-emerald-500 via-teal-500 to-sky-500 shadow-emerald-500/25">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 21h8"/><path d="M12 17V3"/><path d="M7 8h10"/><path d="M5 13h14"/></svg>
         </div>
         <div x-show="!sidebarCollapsed" x-transition.opacity>
             <p class="text-sm font-semibold text-slate-950 dark:text-white">{{ __('common.app_name') }}</p>
@@ -81,7 +81,7 @@
         </div>
     </div>
 
-    <nav class="flex-1 space-y-1 overflow-y-auto px-3 py-4">
+    <nav class="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
         <x-sidebar-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" icon="dashboard">{{ __('sidebar.dashboard') }}</x-sidebar-link>
 
         @foreach ($menus as $menu)
@@ -93,9 +93,9 @@
         @endforeach
     </nav>
 
-    <div class="border-t border-slate-200/70 p-3 dark:border-slate-800">
-        <button @click="sidebarCollapsed = !sidebarCollapsed" class="flex w-full items-center justify-center rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-slate-600 transition hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800">
-            <svg class="h-5 w-5 transition-transform" :class="sidebarCollapsed ? 'rotate-180' : ''" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.79 5.23a.75.75 0 0 1-.02 1.06L9.06 10l3.71 3.71a.75.75 0 1 1-1.06 1.06l-4.24-4.24a.75.75 0 0 1 0-1.06l4.24-4.24a.75.75 0 0 1 1.08 0Z" clip-rule="evenodd"/></svg>
+    <div class="p-3 border-t border-slate-200/70 dark:border-slate-800">
+        <button @click="sidebarCollapsed = !sidebarCollapsed" class="flex items-center justify-center w-full px-3 py-2 transition border rounded-xl border-slate-200 bg-slate-50 text-slate-600 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800">
+            <svg class="w-5 h-5 transition-transform" :class="sidebarCollapsed ? 'rotate-180' : ''" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.79 5.23a.75.75 0 0 1-.02 1.06L9.06 10l3.71 3.71a.75.75 0 1 1-1.06 1.06l-4.24-4.24a.75.75 0 0 1 0-1.06l4.24-4.24a.75.75 0 0 1 1.08 0Z" clip-rule="evenodd"/></svg>
         </button>
     </div>
 </aside>
