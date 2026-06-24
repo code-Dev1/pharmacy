@@ -166,6 +166,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('stock-adjustments/create', StockAdjustmentCreate::class)->name('stock-adjustments.create');
     Route::get('advanced/{page}/{id?}', AdvancedPage::class)->name('advanced.page');
     Route::get('pdf/sales/{sale}', [PharmacyPdfController::class, 'saleInvoice'])->name('pdf.sale');
+    Route::get('receipts/sales/{sale}', [PharmacyPdfController::class, 'saleReceipt'])->name('receipt.sale');
     Route::get('pdf/purchases/{purchase}', [PharmacyPdfController::class, 'purchaseInvoice'])->name('pdf.purchase');
     Route::get('pdf/reports/{type}', [PharmacyPdfController::class, 'report'])->name('pdf.report');
     Route::get('pdf/customers/{customer}/statement', [PharmacyPdfController::class, 'customerStatement'])->name('pdf.customer.statement');

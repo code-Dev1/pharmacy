@@ -77,6 +77,19 @@
             };
             window.applyTheme();
             document.addEventListener('livewire:navigated', window.applyTheme);
+            window.addEventListener('print-receipt', function (event) {
+                const url = event.detail?.url || event.detail?.[0]?.url;
+                if (!url) {
+                    return;
+                }
+
+                const receiptWindow = window.open(url, '_blank', 'width=420,height=720');
+                if (!receiptWindow) {
+                    window.dispatchEvent(new CustomEvent('notify', {
+                        detail: { message: 'رسید ساخته شد، اما مرورگر پنجره چاپ را بسته کرد.', variant: 'warning' },
+                    }));
+                }
+            });
         </script>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>

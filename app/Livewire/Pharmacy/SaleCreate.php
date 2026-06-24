@@ -115,6 +115,7 @@ class SaleCreate extends Component
             $this->resetSaleForm();
             $this->dispatch('sale-created');
             $this->dispatch('notify', message: __('common.saved'), variant: 'success');
+            $this->dispatch('print-receipt', url: route('receipt.sale', $sale));
 
             return null;
         }

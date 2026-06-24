@@ -25,6 +25,18 @@ class PharmacyPdfController extends Controller
         ], "sale-{$sale->invoice_no}.pdf");
     }
 
+    public function saleReceipt(Sale $sale)
+    {
+        return view('pdf.receipt-print', [
+            'title' => __('sales.sale'),
+            'document' => $sale->load(['customer', 'items.product', 'payments']),
+            'person' => $sale->customer,
+            'items' => $sale->items,
+            'setting' => Setting::query()->first(),
+            'dir' => \App\Support\Locale::direction(),
+        ]);
+    }
+
     public function purchaseInvoice(Purchase $purchase)
     {
         return $this->pdf('pdf.invoice', [
